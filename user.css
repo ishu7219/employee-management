@@ -1,0 +1,224 @@
+/* ========== SIDEBAR ========== */
+.sidebar {
+  background: linear-gradient(180deg, #121826 0%, #1f2a44 100%);
+  width: 240px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  padding-top: 32px;
+  z-index: 30;
+  border-right: 1.5px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-logo-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 36px;
+  padding-left: 28px;
+}
+
+.sidebar-squares {
+  display: flex;
+  gap: 3px;
+}
+
+.sq1, .sq2, .sq3, .sq4 {
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+}
+.sq1 { background: #ff4f4f; }
+.sq2 { background: #29c67f; }
+.sq3 { background: #ffce42; }
+.sq4 { background: #3ba9fc; }
+
+.sidebar-title {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.sidebar .nav-link {
+  color: #e0e3ea;
+  font-size: 1.05rem;
+  padding: 12px 26px;
+  margin: 3px 10px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+}
+
+.sidebar .nav-link i {
+  font-size: 1.1rem;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+  background: linear-gradient(90deg, #3ba9fc, #29c67f);
+  color: #fff;
+  transform: translateX(4px);
+  font-weight: 600;
+}
+
+/* ========== MAIN PANEL ========== */
+.main-panel {
+  margin-left: 240px;
+  min-height: 100vh;
+  background: linear-gradient(145deg, #f3f6fb 0%, #e8edf5 100%);
+  padding: 35px 40px;
+  transition: margin-left 0.3s;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ========== HEADER ========== */
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+h2, h3 {
+  color: #1d2b53;
+  font-weight: 600;
+}
+
+/* ========== SEARCH SECTION ========== */
+.search-row {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.search-row input {
+  flex: 1;
+  max-width: 320px;
+  height: 2.4rem;
+  padding: 0 14px;
+  font-size: 1rem;
+  border: 1px solid #cfd5e0;
+  border-radius: 6px;
+  outline: none;
+  background: #fff;
+  transition: all 0.2s;
+}
+.search-row input:focus {
+  border-color: #29c67f;
+  box-shadow: 0 0 6px rgba(41, 198, 127, 0.3);
+}
+
+.search-row button {
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+.search-row .btn-success {
+  background: #29c67f;
+  color: white;
+}
+.search-row .btn-success:hover {
+  background: #21a968;
+}
+.search-row .btn-danger {
+  background: #ef4e4d;
+  color: white;
+}
+.search-row .btn-danger:hover {
+  background: #c53d3c;
+}
+
+/* ========== ADD EMPLOYEE BUTTON ========== */
+.add-emp-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+.btn-add-employee {
+  background: linear-gradient(90deg, #29c67f, #3ba9fc);
+  color: white;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 8px 18px;
+  border: none;
+  transition: all 0.25s;
+}
+.btn-add-employee:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 10px rgba(41, 198, 127, 0.35);
+}
+
+/* ========== TABLE SECTION ========== */
+.table-box {
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.98rem;
+}
+.table th {
+  background: #eaf9f3;
+  color: #1d2b53;
+  font-weight: 600;
+  padding: 12px;
+  border-bottom: 2px solid #cce7dc;
+}
+.table td {
+  background: #fff;
+  padding: 12px;
+  border-bottom: 1px solid #e2e6ea;
+}
+
+.table tr:hover td {
+  background: #f9fffb;
+  transition: all 0.2s;
+}
+
+/* Buttons in Action */
+.action-btn {
+  padding: 5px 11px;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 500;
+  border: none;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.btn-view { background: #29c67f; }
+.btn-edit { background: #3ba9fc; }
+.btn-delete { background: #ef4e4d; }
+.btn-view:hover { background: #1fa56b; transform: scale(1.05); }
+.btn-edit:hover { background: #2b94e8; transform: scale(1.05); }
+.btn-delete:hover { background: #cc3a3a; transform: scale(1.05); }
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 992px) {
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+  .main-panel {
+    margin-left: 0;
+    padding: 20px;
+  }
+}

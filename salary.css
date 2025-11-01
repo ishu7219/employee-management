@@ -1,0 +1,232 @@
+/* ========== SIDEBAR ========== */
+.sidebar {
+  background: linear-gradient(180deg, #121826 0%, #1f2a44 100%);
+  width: 240px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  padding-top: 32px;
+  z-index: 30;
+  border-right: 1.5px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-logo-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 36px;
+  padding-left: 28px;
+}
+
+.sidebar-squares {
+  display: flex;
+  gap: 3px;
+}
+
+.sq1, .sq2, .sq3, .sq4 {
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+}
+.sq1 { background: #ff4f4f; }
+.sq2 { background: #29c67f; }
+.sq3 { background: #ffce42; }
+.sq4 { background: #3ba9fc; }
+
+.sidebar-title {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.sidebar .nav-link {
+  color: #e0e3ea;
+  font-size: 1.05rem;
+  padding: 12px 26px;
+  margin: 3px 10px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+}
+
+.sidebar .nav-link i {
+  font-size: 1.1rem;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+  background: linear-gradient(90deg, #3ba9fc, #29c67f);
+  color: #fff;
+  transform: translateX(4px);
+  font-weight: 600;
+}
+
+/* ======================
+   MAIN PANEL STYLING
+====================== */
+.main-panel {
+  margin-left: 235px;
+  background: #f8fafc;
+  min-height: 100vh;
+  padding: 35px 45px;
+  transition: margin-left 0.13s;
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.header-row h3 {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.breadcrumb {
+  background: transparent;
+  margin-top: 4px;
+  font-size: 1rem;
+}
+.breadcrumb-item.active {
+  color: #21997f;
+  font-weight: 500;
+}
+
+/* ======================
+   CARD + TABLE AREA
+====================== */
+.salary-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 14px rgba(40, 80, 160, 0.05);
+  padding: 24px 32px;
+  margin-bottom: 24px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+.salary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 16px rgba(40, 80, 160, 0.1);
+}
+
+.salary-card label {
+  font-weight: 500;
+  color: #222;
+}
+
+.salary-card input,
+.salary-card select {
+  border: 1px solid #d0d3db;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  background: #f9fcfd;
+  transition: border-color 0.2s;
+}
+.salary-card input:focus,
+.salary-card select:focus {
+  border-color: #1598e6;
+  outline: none;
+  background: #fff;
+}
+
+/* ======================
+   BUTTONS
+====================== */
+.btn-primary {
+  background: #1598e6;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  transition: 0.2s;
+}
+.btn-primary:hover {
+  background: #0d85cf;
+}
+.btn-danger {
+  border-radius: 8px;
+}
+.btn-success {
+  border-radius: 8px;
+}
+
+/* ======================
+   TABLE DESIGN
+====================== */
+.table-box {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(50, 100, 200, 0.05);
+  padding: 20px 25px;
+}
+
+.table th {
+  background: #e9f6ff !important;
+  color: #1f2937;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.table td {
+  color: #2d3748;
+  vertical-align: middle;
+}
+.table tbody tr:hover {
+  background: #f1f9ff;
+  transition: 0.2s;
+}
+
+/* ======================
+   SEARCH BAR
+====================== */
+.search-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.search-row input {
+  width: 220px;
+  height: 2.2rem;
+  font-size: 1.03rem;
+  padding-left: 13px;
+  border: 1px solid #d0d3db;
+  border-radius: 6px;
+  background: #f9fcfd;
+  transition: border-color 0.2s;
+}
+.search-row input:focus {
+  border-color: #1598e6;
+  outline: none;
+}
+.search-row button {
+  border-radius: 8px;
+}
+
+/* ======================
+   RESPONSIVE DESIGN
+====================== */
+@media (max-width: 992px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border-right: none;
+  }
+  .main-panel {
+    margin-left: 0;
+    padding: 20px;
+  }
+  .salary-card {
+    padding: 18px;
+  }
+}

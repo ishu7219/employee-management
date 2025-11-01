@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Leave Management</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="leave-management.css">
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-logo-row">
+      <div class="sidebar-squares">
+        <div class="sq1"></div><div class="sq2"></div><div class="sq3"></div><div class="sq4"></div>
+      </div>
+      <span class="sidebar-title">ADMIN PANEL</span>
+    </div>
+    <nav class="flex-column">
+      <a href="user-management.html" class="nav-link"><i class="fa fa-users"></i> User Management</a>
+      <a href="system-management.html" class="nav-link"><i class="fa fa-sliders-h"></i> Salary management</a>
+      <a href="leave-management.html" class="nav-link active"><i class="fa fa-calendar-xmark"></i> Leave management</a>
+      <a href="calendar.html" class="nav-link"><i class="fa fa-calendar-day"></i> Calendar</a>
+      <a href="settings.html" class="nav-link"><i class="fa fa-gear"></i> Settings</a>
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-panel">
+    <div class="header-row">
+      <h3 style="font-weight:600;">Leave Management</h3>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb small">
+          <li class="breadcrumb-item">Home</li>
+          <li class="breadcrumb-item active" aria-current="page">Leave</li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- Search -->
+    <div class="admin-manager-card">
+      <label style="font-weight:500;">Search</label>
+      <div class="search-row mt-2">
+        <label style="color:#555;">Search by leave type</label>
+        <input type="text" id="searchLeaveType" placeholder="Leave type"/>
+        <button class="btn btn-success" onclick="searchLeaves()">Search</button>
+        <button class="btn btn-danger" onclick="clearLeaveSearch()">Clear</button>
+      </div>
+    </div>
+
+    <!-- Add Leave Form -->
+    <div class="mb-4">
+      <form id="addLeaveForm" class="row g-3 align-items-end">
+        <div class="col-auto">
+          <label class="form-label">Employee</label>
+          <select class="form-select" id="leaveEmployee" required>
+            <option value="">Select Employee</option>
+          </select>
+        </div>
+        <div class="col-auto">
+          <label class="form-label">Type</label>
+          <input type="text" id="leaveType" class="form-control" required>
+        </div>
+        <div class="col-auto">
+          <label class="form-label">From</label>
+          <input type="date" id="leaveFrom" class="form-control" required>
+        </div>
+        <div class="col-auto">
+          <label class="form-label">To</label>
+          <input type="date" id="leaveTo" class="form-control" required>
+        </div>
+        <div class="col-auto">
+          <label class="form-label">Days</label>
+          <input type="number" min="1" id="leaveDays" class="form-control" required>
+        </div>
+        <div class="col-auto">
+          <label class="form-label">Reason</label>
+          <input type="text" id="leaveReason" class="form-control" required>
+        </div>
+        <div class="col-auto">
+          <label class="form-label">Offer</label>
+          <select id="leaveOffer" class="form-select" required>
+            <option value="Paid">Paid</option>
+            <option value="Unpaid">Unpaid</option>
+          </select>
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary">Add Leave</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Leave Table -->
+    <div class="table-box">
+      <label style="font-weight:500; margin-bottom:7px;">Leave List</label>
+      <table class="table table-bordered align-middle">
+        <thead>
+          <tr>
+            <th>S.N</th>
+            <th>Employee name</th>
+            <th>Leave type</th>
+            <th>Date from</th>
+            <th>Date to</th>
+            <th>No. of days</th>
+            <th>Reason</th>
+            <th>Leave type offer</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="leaveTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ✅ Firebase v8 SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+  <script>
+    // ✅ Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDEYv5r1r12P0b9YcZr06IEH2AfP2nR8X8",
+      authDomain: "employeefire-4ee96.firebaseapp.com",
+      databaseURL: "https://employeefire-4ee96-default-rtdb.firebaseio.com/",
+      projectId: "employeefire-4ee96",
+      storageBucket: "employeefire-4ee96.appspot.com",
+      messagingSenderId: "959883913993",
+      appId: "1:959883913993:web:6f9cfec05c15fd9b4a5d84"
+    };
+
+    // ✅ Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // 🔹 Populate employee dropdown
+    const employeeSelect = document.getElementById("leaveEmployee");
+    const empRef = db.ref("employees");
+
+    empRef.once("value").then(snapshot => {
+      snapshot.forEach(child => {
+        const emp = child.val();
+        const option = document.createElement("option");
+        option.value = emp.username;
+        option.textContent = emp.username;
+        employeeSelect.appendChild(option);
+      });
+    });
+
+    // 🔹 Handle Add Leave
+    const leaveForm = document.getElementById("addLeaveForm");
+    const leaveTableBody = document.getElementById("leaveTableBody");
+    const leaveRef = db.ref("leaves");
+
+    leaveForm.addEventListener("submit", e => {
+      e.preventDefault();
+
+      const leaveData = {
+        employee: document.getElementById("leaveEmployee").value,
+        type: document.getElementById("leaveType").value,
+        from: document.getElementById("leaveFrom").value,
+        to: document.getElementById("leaveTo").value,
+        days: document.getElementById("leaveDays").value,
+        reason: document.getElementById("leaveReason").value,
+        offer: document.getElementById("leaveOffer").value,
+        status: "Pending"
+      };
+
+      // ✅ Push to Firebase
+      leaveRef.push(leaveData);
+      leaveForm.reset();
+      alert("✅ Leave added successfully!");
+    });
+
+    // 🔹 Fetch leaves from Firebase
+    leaveRef.on("value", snapshot => {
+      leaveTableBody.innerHTML = "";
+      let index = 1;
+
+      snapshot.forEach(child => {
+        const data = child.val();
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+          <td>${index++}</td>
+          <td>${data.employee}</td>
+          <td>${data.type}</td>
+          <td>${data.from}</td>
+          <td>${data.to}</td>
+          <td>${data.days}</td>
+          <td>${data.reason}</td>
+          <td>${data.offer}</td>
+          <td><span class="badge bg-info">${data.status}</span></td>
+          <td>
+            <button class="btn btn-success btn-sm" onclick="updateStatus('${child.key}','Approved')">Approve</button>
+            <button class="btn btn-danger btn-sm" onclick="updateStatus('${child.key}','Rejected')">Reject</button>
+          </td>
+        `;
+        leaveTableBody.appendChild(tr);
+      });
+    });
+
+    // 🔹 Update status
+    function updateStatus(key, status) {
+      db.ref("leaves/" + key).update({ status });
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
